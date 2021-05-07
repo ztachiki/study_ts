@@ -18,12 +18,20 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
+      - name: Setup NodeJs
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # Runs a npm install
+      - name: Install Dependencies
+        run: npm install
 
       # Runs a set of commands using the runners shell
-      - name: Run a test
-        run: npm test
+      - name: Run  test
+        uses: mattallty/jest-github-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          test-command: npm test
