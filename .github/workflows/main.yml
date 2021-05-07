@@ -30,6 +30,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run  test
+        uses: mattallty/jest-github-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm test
